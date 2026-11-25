@@ -1,0 +1,22 @@
+ADSL-App 0.8.1 — تحديث آمن وإضافة النسخة الاحتياطية المباشرة
+
+1) أوقف الجسر (Ctrl+C).
+2) انسخ مجلد المشروع احتياطياً:
+   cd ~
+   cp -a adsl-app "adsl-app-backup-before-0.8.1-$(date +%Y%m%d-%H%M%S)"
+3) انقل ZIP إلى التنزيلات ثم:
+   mkdir -p ~/adsl-update-0.8.1
+   unzip -o ~/storage/downloads/ADSL-App-0.8.1.zip -d ~/adsl-update-0.8.1
+   cp -a ~/adsl-update-0.8.1/. ~/adsl-app/
+4) اختبر:
+   cd ~/adsl-app
+   node --version
+   npm test
+   المتوقع: 213 اختباراً ناجحاً.
+5) أنشئ نسخة SQLite:
+   node tools/sqlite-backup.mjs create
+   المتوقع: integrity_check = ok وملف داخل data/backups.
+6) شغّل:
+   node bridge/server.js
+
+لا تحذف data ولا localStorage. لا تستعد النسخة على قاعدة التشغيل في هذا الاختبار.

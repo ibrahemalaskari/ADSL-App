@@ -1,0 +1,19 @@
+{
+  "name": "adsl-app",
+  "version": "0.8.5",
+  "private": true,
+  "type": "module",
+  "description": "متابعة استهلاك رصيد خطوط ADSL عبر MikroTik RouterOS v6",
+  "scripts": {
+    "test": "node --test test/sales.test.js test/md5.test.js test/routeros-api.test.js test/counters.test.js test/bridge.test.js test/excel.test.js test/usermanager.test.js test/cards.test.js test/cardsreader.test.js test/oplog.test.js test/backup.test.js test/backup-cli.test.js test/link.test.js test/ui-status.test.js test/day-entry.test.js test/sqlite-store.test.js test/sqlite-bridge.test.js test/line-balance-sync.test.js test/line-balance-reconciliation.test.js test/sqlite-backup.test.js test/anomaly-detector.test.js test/browser-codec.test.js",
+    "bridge": "node bridge/server.js",
+    "um-probe": "node tools/um-probe.mjs",
+    "cards-read": "node tools/cards-read.mjs",
+    "backup": "node tools/backup-cli.mjs",
+    "sqlite-backup": "node tools/sqlite-backup.mjs create",
+    "sqlite-verify": "node tools/sqlite-backup.mjs verify"
+  },
+  "engines": {
+    "node": ">=22.5.0"
+  }
+}
