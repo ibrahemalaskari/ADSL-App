@@ -1,0 +1,52 @@
+name: Build Android APK
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'core/**'
+      - 'www/**'
+      - 'android-res/**'
+      - 'capacitor.config.json'
+      - 'package.json'
+      - '.github/workflows/android-apk.yml'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - uses: android-actions/setup-android@v3
+      - name: Prepare web bundle
+        run: |
+          mkdir -p android-web/www android-web/core
+          cp www/adsl-app.html android-web/index.html
+          cp -r www/* android-web/www/
+          cp -r core/* android-web/core/
+      - name: Install Capacitor
+        run: npm install --no-audit --no-fund
+      - name: Add Android platform
+        run: |
+          npx cap add android
+          npx cap sync android
+      - name: Falcon name, icon and local-bridge access
+        run: python3 android-res/patch_android.py
+      - name: Build APK
+        run: |
+          chmod +x android/gradlew
+          cd android && ./gradlew assembleDebug
+      - name: Name the APK
+        run: cp android/app/build/outputs/apk/debug/app-debug.apk Falcon-Sales-debug.apk
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: Falcon-Sales-APK
+          path: Falcon-Sales-debug.apk
+          if-no-files-found: error

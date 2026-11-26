@@ -1,0 +1,10 @@
+{
+  "appId": "com.falcon.adslapp",
+  "appName": "مبيعات فالكون",
+  "webDir": "android-web",
+  "bundledWebRuntime": false,
+  "server": {
+    "url": "http://127.0.0.1:8787/adsl-app.html",
+    "cleartext": true
+  }
+}
