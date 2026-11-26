@@ -35,7 +35,7 @@ jobs:
       - name: Install Capacitor
         run: |
           npm install --no-audit --no-fund
-          npm install --no-save --no-audit --no-fund @capacitor/android@^7.4.3
+          npm install --no-save --no-audit --no-fund @capacitor/core@^7.4.3 @capacitor/cli@^7.4.3 @capacitor/android@^7.4.3
           npm ls @capacitor/cli @capacitor/core @capacitor/android
           ls node_modules/.bin | grep -E '^(cap|capacitor)$'
       - name: Add Android platform
